@@ -23,7 +23,7 @@ jobs:
       run: go mod tidy
 
     - name: Test
-      run: go test -v ./...
+      run: go test -coverprofile=coverage.out ./...
 
     - name: Go coverage report
       uses: ncruces/go-coverage-report@v0
