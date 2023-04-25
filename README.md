@@ -33,7 +33,7 @@ $ WECHAT_API_ROOT=https://api.weixin.qq.com APPID={APPID} APPSECRET={SECRET} JWT
 | WECHAT_API_ROOT | The root URL for the WeChat API |
 | APPID | The unique identifier for your WeChat Official Account  |
 | APPSECRET | The secret key for your WeChat Official Account |
-| JWT_KEY_{KEY_ID} | The secret key used for JSON Web Token (JWT) authentication |
+| JWT_KEY_{kid} | The secret key used for JSON Web Token (JWT) authentication |
 
 ## API Documentation
 
