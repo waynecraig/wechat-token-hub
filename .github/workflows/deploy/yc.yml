@@ -1,8 +1,11 @@
 name: CD
 
 on:
-  push:
-    branches: [deploy/yc]
+  pull_request:
+    branches:
+      - deploy/yc
+    types:
+      - closed
 
 jobs:
   deploy:
