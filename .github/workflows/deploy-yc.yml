@@ -42,10 +42,10 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST_YC }} > ~/.ssh/known_hosts
 
       - name: Copy file
-        run: scp ./bin/wechat-token-hub ${{ secrets.SSH_USER_YC }}@${{ secrets.SSH_HOST_YC }}:${{ secrets.WORK_DIR_YC }}
+        run: scp -o StrictHostKeyChecking=no ./bin/wechat-token-hub ${{ secrets.SSH_USER_YC }}@${{ secrets.SSH_HOST_YC }}:${{ secrets.WORK_DIR_YC }}
 
       - name: Trigger deploy event
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && sh on-deploy.sh && exit"
+        run: ssh ${{ secrets.SSH_USER_YC }}@${{ secrets.SSH_HOST_YC }} "cd ${{ secrets.WORK_DIR_YC }} && sh on-deploy.sh && exit"
 
       - name: cleanup
         run: rm -rf ~/.ssh
