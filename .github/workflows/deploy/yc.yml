@@ -1,0 +1,48 @@
+name: CD
+
+on:
+  push:
+    branches: [deploy/yc]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to YC
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run Test
+        run: go test -v ./...
+
+      - name: Build
+        run: GOOS=linux GOARCH=amd64 go build -o ./bin/wechat-token-hub ./cmd/main
+
+      - name: Install ssh keys
+        # check this thread to understand why its needed:
+        # https://stackoverflow.com/a/70447517
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY_YC }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST_YC }} > ~/.ssh/known_hosts
+
+      - name: Copy file
+        run: scp ./bin/wechat-token-hub ${{ secrets.SSH_USER_YC }}@${{ secrets.SSH_HOST_YC }}:${{ secrets.WORK_DIR_YC }}
+
+      - name: Trigger deploy event
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && sh on-deploy.sh && exit"
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
