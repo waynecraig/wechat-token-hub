@@ -28,7 +28,7 @@ jobs:
         run: go test -v ./...
 
       - name: Build
-        run: GOOS=linux GOARCH=amd64 go build -o ./bin/wechat-token-hub ./cmd/main
+        run: GOOS=linux GOARCH=amd64 go build -o ./bin/wechat-token-hub ./cmd/main.go
 
       - name: Install ssh keys
         # check this thread to understand why its needed:
