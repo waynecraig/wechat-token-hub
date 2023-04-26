@@ -1,11 +1,9 @@
 name: CD
 
 on:
-  pull_request:
+  push:
     branches:
       - deploy/yc
-    types:
-      - closed
 
 jobs:
   deploy:
@@ -19,13 +17,6 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 'stable'
-
-      - uses: actions/cache@v2
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
 
       - name: Run Test
         run: go test -v ./...
