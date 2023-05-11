@@ -1,0 +1,42 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - deploy/cnma
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to CNMA
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
+
+      - name: Run Test
+        run: go test -v ./...
+
+      - name: Build
+        run: GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/wechat-token-hub ./cmd/main.go
+
+      - name: Install ssh keys
+        # check this thread to understand why its needed:
+        # https://stackoverflow.com/a/70447517
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY_CN }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST_CN }} > ~/.ssh/known_hosts
+
+      - name: Copy file
+        run: scp -o StrictHostKeyChecking=no ./bin/wechat-token-hub ${{ secrets.SSH_USER_CN }}@${{ secrets.SSH_HOST_CN }}:${{ secrets.WORK_DIR_CNMA }}/next
+
+      - name: Trigger deploy event
+        run: ssh ${{ secrets.SSH_USER_CN }}@${{ secrets.SSH_HOST_CN }} "cd ${{ secrets.WORK_DIR_CNMA }} && sh on-deploy.sh && exit"
+
+      - name: cleanup
+        run: rm -rf ~/.ssh
