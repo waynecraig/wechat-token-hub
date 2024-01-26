@@ -5,10 +5,14 @@
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [License](#license)
+- [wechat-token-hub](#wechat-token-hub)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [API Documentation](#api-documentation)
+    - [Authorization Header:](#authorization-header)
+    - [Rotate Query:](#rotate-query)
+  - [License](#license)
 
 ## Installation
 
@@ -44,7 +48,7 @@ Examples:
 Request:
 ```
 GET /access-token HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsImlhdCI6MTYzMjQ2NzA4OCwiYXVkIjoid2VjaGF0LXRva2VuLWh1YiJ9.l3Uq3jHMZ-XEUUOLlrVh6by7O3cxNgMpy3eueaEz7To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsImlhdCI6MTYzMjQ2NzA4OCwiYXVkIjoid2VjaGF0LXRva2VuLWh1YiJ9.l3Uq3jHMZ-XEUUOLlrVh6by7O3cxNgMpy3eueaEz7To
 ```
 
 Response:
@@ -60,7 +64,7 @@ Response:
 Request:
 ```
 GET /ticket?type=jsapi HTTP/1.1
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsImlhdCI6MTYzMjQ2NzA4OCwiYXVkIjoid2VjaGF0LXRva2VuLWh1YiJ9.l3Uq3jHMZ-XEUUOLlrVh6by7O3cxNgMpy3eueaEz7To
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsImlhdCI6MTYzMjQ2NzA4OCwiYXVkIjoid2VjaGF0LXRva2VuLWh1YiJ9.l3Uq3jHMZ-XEUUOLlrVh6by7O3cxNgMpy3eueaEz7To
 ```
 
 Response:
