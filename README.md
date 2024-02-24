@@ -52,11 +52,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsI
 ```
 
 Response:
-```json
-{
-  "access_token": "ACCESS_TOKEN",
-  "expires_in": 7200
-}
+```raw
+{{ACCESS_TOKEN_STRING}}
 ```
 
 2. GET /ticket?type=jsapi
@@ -68,11 +65,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJraWQiOiJrZXktMSIsI
 ```
 
 Response:
-```json
-{
-  "ticket": "TICKET",
-  "expires_in": 7200
-}
+```raw
+{{TICKET_STRING}}
 ```
 
 ### Authorization Header:
