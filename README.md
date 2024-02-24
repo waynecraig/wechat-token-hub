@@ -1,5 +1,5 @@
 # wechat-token-hub
-![Coverage](https://img.shields.io/badge/Coverage-94.0%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-88.6%25-brightgreen)
 
  The project is a centralized control server designed to unify the application, caching, and refreshing of access tokens and tickets for the WeChat API. These credentials have limits on request frequency and number, and applying for new credentials will render the old ones invalid. Some credentials also have IP whitelists, making it best practice to use a global service to manage them separately. For more information, please refer to https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html.
 
